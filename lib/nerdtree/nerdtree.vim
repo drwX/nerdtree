@@ -21,7 +21,12 @@ function! s:NERDTree.changeRoot(node)
 
     "change dir to the dir of the new root if instructed to
     if g:NERDTreeChDirMode ==# 2
-        exec "cd " . self.root.path.str({'format': 'Edit'})
+        let CD = "cd "
+        if has('nvim')
+            let CD = "tcd "
+        endif
+
+        exec CD . self.root.path.str({'format': 'Edit'})
     endif
 
     call self.render()

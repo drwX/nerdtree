@@ -73,7 +73,11 @@ function! s:Path.changeToDir()
     endif
 
     try
-        execute "cd " . dir
+        let CD = "cd "
+        if has('nvim')
+            let CD = "tcd "
+        endif
+        execute CD . dir
         call nerdtree#echo("CWD is now: " . getcwd())
     catch
         throw "NERDTree.PathChangeError: cannot change CWD to " . dir
